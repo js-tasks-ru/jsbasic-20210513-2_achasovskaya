@@ -24,5 +24,5 @@ function initCarousel() {
     if (numberSlide === 1) {
       carouselLeft.style.display = 'none';
     }
-  });
+  })
 }
