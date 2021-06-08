@@ -15,7 +15,7 @@
 export default class UserTable {
 
   constructor(rows) {
-    let button = '<button>X</button>';
+    let button = '<button>[X]</button>';
     this.elem = document.createElement('table');
     this.items = [];
     for (let elem of rows) {
@@ -57,5 +57,5 @@ export default class UserTable {
 
   onClick(event) {
     event.target.parentNode.parentNode.remove();
-   }
+  }
 }
