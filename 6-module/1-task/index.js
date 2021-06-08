@@ -56,8 +56,6 @@ export default class UserTable {
   }
 
   onClick(event) {
-    let test = event.target.parentNode.parentNode;
-    test.remove();
-
-  }
+    event.target.parentNode.parentNode.remove();
+   }
 }
