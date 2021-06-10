@@ -19,15 +19,16 @@ export default class UserTable {
     this.elem = document.createElement('table');
     this.items = [];
     for (let elem of rows) {
-      this.items.push('<td>' + elem.name + '</td>' +
-        '<td>' + elem.age + '</td>' +
-        '<td>' + elem.salary + '</td>' +
-        '<td>' + elem.city + '</td>' +
-        '<td>' + button + '</td>'
-      );
+      let line = `<td>${elem.name}</td>
+      <td>${elem.age}</td>
+      <td>${elem.salary}</td>
+      <td>${elem.city}</td>
+      <td>${button}</td>`;
+
+      this.items.push(line);
     }
     this.render(this.items);
-    let buttonReal = this.elem.getElementsByTagName('button');
+    let buttonReal = this.elem.querySelectorAll('button');
     for (let element of buttonReal) {
       element.addEventListener('click', (event) => this.onClick(event));
     }
