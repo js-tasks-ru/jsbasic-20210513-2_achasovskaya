@@ -25,7 +25,6 @@ export default class ProductCard {
     `;
   }
 
-
   onClick(event) {
     this.elem.dispatchEvent(new CustomEvent("product-add", {
       detail: this.product.id,
