@@ -9,7 +9,7 @@ export default class Carousel {
     let button = this.elem.querySelectorAll('.carousel__button');
     for (let elem of button) {
       elem.addEventListener('click', (event) => this.onClick(event));
-    }
+    };
     this.Carusel();
   }
   render(caruselInner, slides) {
@@ -28,48 +28,44 @@ export default class Carousel {
     caruselInner.innerHTML = `<div class="carousel__arrow carousel__arrow_right"><img src="/assets/images/icons/angle-icon.svg" alt="icon"></div>
     <div class="carousel__arrow carousel__arrow_left"> <img src="/assets/images/icons/angle-left-icon.svg" alt="icon"></div>
     <div class="carousel__inner"> ${list}</div>`;
+
   }
 
   onClick(event) {
     let id = event.target.parentNode.parentNode.parentNode.dataset.id;
+    console.log(this.elem);
     this.elem.dispatchEvent(new CustomEvent("product-add", {
-      detail: id,
+      detail: event.target.parentNode.parentNode.parentNode.dataset.id,
       bubbles: true
     }));
   }
 
   Carusel() {
-    let carouselSlide = this.elem.querySelectorAll('.carousel__slide'),
-      carouselSlideLenght = carouselSlide.length,
-      carouselRight = this.elem.getElementsByClassName('carousel__arrow carousel__arrow_right')[0],
+    let carouselRight = this.elem.getElementsByClassName('carousel__arrow carousel__arrow_right')[0],
       carouselLeft = this.elem.getElementsByClassName('carousel__arrow carousel__arrow_left')[0],
       carouselInner = this.elem.getElementsByClassName('carousel__inner')[0],
       longCarousel = null,
-      numberSlide = 1;
-
-    setTimeout(() => {
-      longCarousel = carouselSlide[0].offsetWidth;
-    }, 200);
-
+      numberSlide = 1,
+      carouselSlide = this.elem.querySelectorAll('.carousel__slide'),
+      carouselSlideLenght = carouselSlide.length;
+    longCarousel = carouselSlide[0];
     carouselLeft.style.display = 'none';
     carouselRight.addEventListener("click", function () {
-      carouselInner.style.transform = 'translateX(-' + (longCarousel * numberSlide) + 'px)';
+      carouselInner.style.transform = 'translateX(-' + (longCarousel.offsetWidth * numberSlide) + 'px)';
       numberSlide++;
       carouselLeft.style.display = '';
       if (numberSlide === Number(carouselSlideLenght)) {
         carouselRight.style.display = 'none';
       }
-
     });
     carouselLeft.addEventListener("click", function () {
       let numberSlideLeft = numberSlide === 2 ? 0 : (numberSlide - 2);
-      carouselInner.style.transform = 'translateX(-' + (numberSlideLeft * longCarousel) + 'px)';
+      carouselInner.style.transform = 'translateX(-' + (numberSlideLeft * longCarousel.offsetWidth) + 'px)';
       numberSlide--;
       carouselRight.style.display = '';
       if (numberSlide === 1) {
         carouselLeft.style.display = 'none';
       }
     });
-
   }
 }
