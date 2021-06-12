@@ -17,7 +17,6 @@ function initCarousel() {
   });
   carouselLeft.addEventListener("click", function () {
     let numberSlideLeft = numberSlide === 2 ? 0 : (numberSlide - 2);
-    // перемести на местонахождение 
     carouselInner.style.transform = 'translateX(-' + (numberSlideLeft * longCarousel) + 'px)';
     numberSlide--;
     carouselRight.style.display = '';
