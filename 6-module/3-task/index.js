@@ -32,10 +32,10 @@ export default class Carousel {
   }
 
   onClick(event) {
-    let id = event.target.parentNode.parentNode.parentNode.dataset.id;
-    console.log(this.elem);
+    let slide = event.target.closest('.carousel__slide');
+    let id = slide.dataset.id;
     this.elem.dispatchEvent(new CustomEvent("product-add", {
-      detail: event.target.parentNode.parentNode.parentNode.dataset.id,
+      detail: id,
       bubbles: true
     }));
   }
