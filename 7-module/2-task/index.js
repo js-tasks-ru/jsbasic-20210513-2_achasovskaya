@@ -30,8 +30,7 @@ export default class Modal {
   }
   open() {
     document.body.classList.add("is-modal-open");
-    let container = document.body.querySelector('.container');
-    container.append(this.elem);
+    document.body.append(this.elem);
   }
   setTitle(heading) {
     let title = this.elem.querySelector('.modal__title');
