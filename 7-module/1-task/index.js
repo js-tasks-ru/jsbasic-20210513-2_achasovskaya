@@ -57,6 +57,7 @@ export default class RibbonMenu {
     });
   }
   onClick(event) {
+    event.preventDefault();
     let category = event.target.closest('.ribbon__item');
     let id = category.dataset.id;
     let active = this.elem.querySelectorAll('.ribbon__item_active');
