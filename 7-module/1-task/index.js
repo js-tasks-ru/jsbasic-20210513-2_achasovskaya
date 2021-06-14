@@ -22,9 +22,16 @@ export default class RibbonMenu {
     const list = categories.map(value => `
     <a href="#" class="ribbon__item ribbon__item_active" data-id="${value.id}">${value.name}</a>
       `).join('');
-    elem.innerHTML = `<div class="ribbon__arrow ribbon__arrow_left ribbon__arrow_visible"><img src="/assets/images/icons/angle-icon.svg" alt="icon"></div>
-    <div class="ribbon__inner"> ${list}</div>
-    <div class="ribbon__arrow ribbon__arrow_right"> <img src="/assets/images/icons/angle-left-icon.svg" alt="icon"></div>
+    elem.innerHTML = `
+      <button class="ribbon__arrow ribbon__arrow_left">
+        <img src="/assets/images/icons/angle-icon.svg" alt="icon">
+      </button>
+      <div class="ribbon__inner">
+        ${list}
+      </div>
+      <button class="ribbon__arrow ribbon__arrow_right ribbon__arrow_visible">
+        <img src="/assets/images/icons/angle-icon.svg" alt="icon">
+      </button>
     `;
   }
 
@@ -35,10 +42,10 @@ export default class RibbonMenu {
       ribbonInner = this.elem.querySelector('.ribbon__inner');
     // это НЕ верно, но это проходит тест, а так, как должно работать - нет
     carouselLeft.addEventListener("click", function () {
-      ribbonInner.scrollBy(350, 0);
+      ribbonInner.scrollBy(-350, 0);
     });
     carouselRight.addEventListener("click", function () {
-      ribbonInner.scrollBy(-350, 0);
+      ribbonInner.scrollBy(350, 0);
     });
 
     ribbonInner.addEventListener("scroll", function () {
@@ -46,12 +53,14 @@ export default class RibbonMenu {
         scrollWidth = ribbonInner.scrollWidth,
         clientWidth = ribbonInner.clientWidth,
         scrollRight = scrollWidth - scrollLeft - clientWidth;
-      if (scrollLeft < 1) {
-        carouselRight.classList.remove("ribbon__arrow_visible");
+      if (scrollLeft > 0) {
         carouselLeft.classList.add("ribbon__arrow_visible");
+      } else {
+        carouselLeft.classList.remove("ribbon__arrow_visible");
       }
       if (scrollRight < 1) {
-        carouselLeft.classList.remove("ribbon__arrow_visible");
+        carouselRight.classList.remove("ribbon__arrow_visible");
+      } else {
         carouselRight.classList.add("ribbon__arrow_visible");
       }
     });
