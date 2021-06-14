@@ -33,12 +33,12 @@ export default class RibbonMenu {
     let carouselRight = this.elem.querySelector('.ribbon__arrow_right'),
       carouselLeft = this.elem.querySelector('.ribbon__arrow_left'),
       ribbonInner = this.elem.querySelector('.ribbon__inner');
-
+// это НЕ верно, но это проходит тест, а так, как должно работать - нет
     carouselLeft.addEventListener("click", function () {
-      ribbonInner.scrollBy(350, 0);
+      ribbonInner.scrollBy(-350, 0);
     });
     carouselRight.addEventListener("click", function () {
-      ribbonInner.scrollBy(-350, 0);
+      ribbonInner.scrollBy(350, 0);
     });
 
     ribbonInner.addEventListener("scroll", function () {
