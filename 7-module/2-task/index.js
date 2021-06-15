@@ -5,15 +5,9 @@ export default class Modal {
     this.elem = document.createElement('div');
     this.elem.classList.add("modal");
     this.render();
-    let buttonDelete = this.elem.querySelectorAll('.modal__close')[0];
-    buttonDelete.addEventListener('click', (event) => this.onClick(event));
-    document.body.onkeyup = function (event) {
-      if (event.code === 'Escape') {
-        document.body.classList.remove("is-modal-open");
-        let container = document.body.querySelector('.modal');
-        container.remove();
-      }
-    };
+    let buttonDelete = this.elem.querySelector('.modal__close');
+    buttonDelete.addEventListener('click', (event) => this.onClickExit(event));
+    document.body.addEventListener('keydown', (event) => this.onKeyDown(event));
   }
   render() {
     this.elem.innerHTML = `
@@ -43,12 +37,17 @@ export default class Modal {
   }
   close() {
     document.body.classList.remove("is-modal-open");
-    let container = document.body.querySelector('.modal');
-    container.remove();
+    this.elem.remove();
   }
-  onClick(event) {
+  onClickExit(event) {
     document.body.classList.remove("is-modal-open");
+    this.elem.remove();
+  }
+  onKeyDown(event) {
     let container = document.body.querySelector('.modal');
-    container.remove();
+    if (event.code === 'Escape' && container) {
+      document.body.classList.remove("is-modal-open");
+      this.elem.remove();
+    }
   }
 }

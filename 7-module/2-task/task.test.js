@@ -1,6 +1,6 @@
 import Modal from './index.js';
 
-fdescribe('7-module-2-task', () => {
+describe('7-module-2-task', () => {
   let modal;
 
   beforeEach(() => {
