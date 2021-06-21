@@ -39,7 +39,10 @@ export default class StepSlider {
       </div>  
     `;
   }
-
+  UpdateSlider(leftPercents) {
+    this.elem.querySelector('.slider__thumb').style.left = `${leftPercents}%`;
+    this.elem.querySelector('.slider__progress').style.width = `${leftPercents}%`;
+  }
   onClickDown = event => {
     // удалили дейсвтие по умолчанию
     event.preventDefault();
@@ -89,11 +92,10 @@ export default class StepSlider {
     this.elem.classList.remove("slider_dragging");
 
     // вернули  к ближнему значению
-    let thumb = this.elem.querySelector('.slider__thumb');
-    let progress = this.elem.querySelector('.slider__progress');
 
-    thumb.style.left = `${(this.value / this.segments) * 100}%`;
-    progress.style.width = `${(this.value / this.segments) * 100}%`;
+    let leftPercents = (this.value / this.segments) * 100;
+    this.UpdateSlider(leftPercents);
+
     // сгенерировали событие
     this.elem.dispatchEvent(new CustomEvent('slider-change', {
       detail: this.value,
@@ -101,13 +103,14 @@ export default class StepSlider {
     }));
   }
 
+
   onClick = event => {
     // повторно заполняем значения при нажатии -  задаем ширину и перемещение ползунка окончательное 
     let left = (event.clientX - this.elem.getBoundingClientRect().left) / this.elem.offsetWidth;
     this.value = Math.round(this.segments * left);
     let leftPercents = (this.value / this.segments) * 100;
-    this.elem.querySelector('.slider__thumb').style.left = `${leftPercents}%`;
-    this.elem.querySelector('.slider__progress').style.width = `${leftPercents}%`;
+    this.UpdateSlider(leftPercents);
+
     this.elem.querySelector('.slider__value').innerHTML = this.value;
     if (this.elem.querySelector('.slider__step-active')) {
       this.elem.querySelector('.slider__step-active').classList.remove('slider__step-active');
@@ -120,4 +123,5 @@ export default class StepSlider {
       })
     );
   }
+
 }
