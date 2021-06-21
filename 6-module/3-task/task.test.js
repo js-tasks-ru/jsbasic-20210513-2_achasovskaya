@@ -36,7 +36,9 @@ describe('6-module-3-task', () => {
     carouselArrowRight = sut.elem.querySelector('.carousel__arrow_right');
     carouselArrowLeft = sut.elem.querySelector('.carousel__arrow_left');
 
-    clickEvent = new MouseEvent('click', { bubbles: true });
+    clickEvent = new MouseEvent('click', {
+      bubbles: true
+    });
   });
 
   afterEach(() => {
@@ -99,7 +101,9 @@ describe('6-module-3-task', () => {
 
       document.body.addEventListener('product-add', (event) => {
         productAddEvent = event;
-      }, { once: true });
+      }, {
+        once: true
+      });
     });
 
     afterEach(() => {
@@ -115,19 +119,19 @@ describe('6-module-3-task', () => {
 
     it('созданное событие должно содержать в себе уникальный идентификатор товара("id") c 1-ого слайда,' +
       ' если кликнули на 1 слайд', () => {
-      let addButton = sut.elem.querySelector('.carousel__button');
-      addButton.dispatchEvent(clickEvent);
+        let addButton = sut.elem.querySelector('.carousel__button');
+        addButton.dispatchEvent(clickEvent);
 
-      expect(productAddEvent.detail).toBe(testSlides[0].id);
-    });
+        expect(productAddEvent.detail).toBe(testSlides[0].id);
+      });
 
     it('созданное событие должно содержать в себе уникальный идентификатор товара("id") c 2-ого слайда,' +
       ' если кликнули на 2 слайд', () => {
-      carouselArrowRight.dispatchEvent(clickEvent);
-      let addButtons = sut.elem.querySelectorAll('.carousel__button');
-      addButtons[1].dispatchEvent(clickEvent);
+        carouselArrowRight.dispatchEvent(clickEvent);
+        let addButtons = sut.elem.querySelectorAll('.carousel__button');
+        addButtons[1].dispatchEvent(clickEvent);
 
-      expect(productAddEvent.detail).toBe(testSlides[1].id);
-    });
+        expect(productAddEvent.detail).toBe(testSlides[1].id);
+      });
   });
 });
