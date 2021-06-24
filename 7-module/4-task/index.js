@@ -18,8 +18,10 @@ export default class StepSlider {
     thumb.onpointerdown = this.onClickDown;
     //прописываем действие на клике 
     this.elem.onclick = this.onClick;
-
+    let leftPercents = (this.value / this.segments) * 100;
+    this.UpdateSlider(leftPercents);
   }
+
   render() {
     let list = [];
     for (let elememt = 0; elememt < this.segments; elememt++) {
@@ -28,16 +30,16 @@ export default class StepSlider {
     };
     list = list.join("");
     this.elem.innerHTML = `
-    <!--Заполненная часть слайдера-->
-    <div class="slider__thumb">
-    <span class="slider__value">${this.value}</span>
-  </div>
-    <div class="slider__progress" style="width: 0%;"></div>
-    <div class="slider__steps">
-    <span class="slider__step-active"></span>
-        ${list}
-      </div>  
-    `;
+     <!--Заполненная часть слайдера-->
+     <div class="slider__thumb">
+     <span class="slider__value">${this.value}</span>
+   </div>
+     <div class="slider__progress" style="width: 0%;"></div>
+     <div class="slider__steps">
+     <span class="slider__step-active"></span>
+         ${list}
+       </div>  
+     `;
   }
   UpdateSlider(leftPercents) {
     this.elem.querySelector('.slider__thumb').style.left = `${leftPercents}%`;
@@ -56,7 +58,6 @@ export default class StepSlider {
   onClickMove = event => {
     // удалили дейсвтие по умолчанию
     event.preventDefault();
-
     let left = event.clientX - this.elem.getBoundingClientRect().left;
     let leftRelative = left / this.elem.offsetWidth;
     if (leftRelative < 0) {
